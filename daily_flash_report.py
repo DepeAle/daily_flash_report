@@ -35,7 +35,7 @@ st.sidebar.header("Input Data")
 st.sidebar.write("Select your desired analysis date:")
 analysis_date = st.sidebar.selectbox("Choose from", ["Last Trading Day", "Customized Dates"])
 if analysis_date=="Last Trading Day":
-    days = st.sidebar.number_input("Enter your Time Horizon in Days:", min_value=0, max_value=3000, value=1000)
+    days = st.sidebar.number_input("Enter your Time Horizon in Days:", min_value=0, max_value=3000, value=500)
     #days = 2000 #almost 5 years before today
     end_date = date.today()
     start_date = end_date-timedelta(days=days)
@@ -53,8 +53,8 @@ st.header("Part 1: Daily Return of the major Stock Market Indexes")
 
 # Text input for a user's name
 
-general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "SWDA.MI", "^FCHI", "^VIX"]
-index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Vix", "Eurostoxx 50", "Ftse Mib 30", "Cac 40", "Dax 30", "Hang Seng", "Nikkei 225", "MSCI World"]
+general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "SWDA.MI", "^FCHI", "^VIX", "^NSEI"]
+index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Vix", "Eurostoxx 50", "Ftse Mib 30", "Cac 40", "Dax 30", "Nifty 50", "Hang Seng", "Nikkei 225", "MSCI World"]
 
 index_data = yf.download(general_index, start=start_date, end=end_date)
 index_data = index_data["Adj Close"]
@@ -67,7 +67,7 @@ last_index_ret = index_data_ret.tail(5)
 last_index_ret = last_index_ret.applymap(lambda x: '{:.4f}'.format(x))
 last_index_ret = last_index_ret.astype(float)
 last_index_ret = last_index_ret.applymap(lambda x: f"{x}%" if pd.notnull(x) else x)
-last_index_ret = last_index_ret[["^GSPC", "^IXIC", "^DJI", "^VIX","^STOXX50E", "FTSEMIB.MI", "^FCHI", "^GDAXI", "^HSI", "^N225", "SWDA.MI"]]
+last_index_ret = last_index_ret[["^GSPC", "^IXIC", "^DJI", "^VIX","^STOXX50E", "FTSEMIB.MI", "^FCHI", "^GDAXI", "^NSEI", "^HSI", "^N225", "SWDA.MI"]]
 
 fig, ax = plt.subplots(figsize=(10, 11))  # Imposta la dimensione della figura
 ax.axis('tight')
@@ -490,18 +490,18 @@ for i in range(len(currencies)):
 plt.show()
 st.pyplot(fig)
 
-fig, axs = plt.subplots(3,3, figsize=(30, 15))
+fig, axs = plt.subplots(2,2, figsize=(33, 20))
 #first line
-axs[0,0].plot(currencies_data.iloc[0:,1], color = "blue")
-axs[0,0].set_title(f'USD / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),5], 4).tolist()}', fontsize=12)
-axs[0,1].plot(currencies_data.iloc[0:,2], color = "blue")
-axs[0,1].set_title(f'GBP / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),3], 4).tolist()}', fontsize=12)
+axs[0,0].plot(currencies_data.iloc[0:,3], color = "blue")
+axs[0,0].set_title(f'USD / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),2], 4).tolist()}', fontsize=10)
+axs[0,1].plot(currencies_data.iloc[0:,1], color = "blue")
+axs[0,1].set_title(f'GBP / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),3], 4).tolist()}', fontsize=10)
 
 #second line
-axs[1,0].plot(currencies_data.iloc[0:,3], color = "blue")
-axs[1,0].set_title(f'CHF / EUR:\n{round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),2], 4).tolist()}', fontsize=12)
-axs[1,1].plot(currencies_data.iloc[0:,4], color = "blue")
-axs[1,1].set_title(f'EUR / JPY:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),1], 4).tolist()}', fontsize=12)
+axs[1,0].plot(currencies_data.iloc[0:,0], color = "blue")
+axs[1,0].set_title(f'CHF / EUR:\n{round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),1], 2).tolist()}', fontsize=10)
+axs[1,1].plot(currencies_data.iloc[0:,2], color = "blue")
+axs[1,1].set_title(f'EUR / JPY:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),0], 1).tolist()}', fontsize=10)
 
 fig.suptitle('Main FX - Quotes', fontsize=36, y=0.94)
 plt.show()
