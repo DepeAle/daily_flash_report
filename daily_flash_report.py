@@ -53,8 +53,8 @@ st.header("Part 1: Daily Return of the major Stock Market Indexes")
 
 # Text input for a user's name
 
-general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "^STOXX", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "SWDA.MI", "^FCHI"]
-index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Eurostoxx 50", "Eurostoxx 600", "Ftse Mib 30", "Cac 40", "Dax 30", "Hang Seng", "Nikkei 225", "MSCI World"]
+general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "SWDA.MI", "^FCHI", "^VIX"]
+index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Vix", "Eurostoxx 50", "Ftse Mib 30", "Cac 40", "Dax 30", "Hang Seng", "Nikkei 225", "MSCI World"]
 
 index_data = yf.download(general_index, start=start_date, end=end_date)
 index_data = index_data["Adj Close"]
@@ -67,7 +67,7 @@ last_index_ret = index_data_ret.tail(5)
 last_index_ret = last_index_ret.applymap(lambda x: '{:.4f}'.format(x))
 last_index_ret = last_index_ret.astype(float)
 last_index_ret = last_index_ret.applymap(lambda x: f"{x}%" if pd.notnull(x) else x)
-last_index_ret = last_index_ret[["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "^STOXX", "FTSEMIB.MI", "^FCHI", "^GDAXI", "^HSI", "^N225", "SWDA.MI"]]
+last_index_ret = last_index_ret[["^GSPC", "^IXIC", "^DJI", "^VIX","^STOXX50E", "FTSEMIB.MI", "^FCHI", "^GDAXI", "^HSI", "^N225", "SWDA.MI"]]
 
 fig, ax = plt.subplots(figsize=(10, 11))  # Imposta la dimensione della figura
 ax.axis('tight')
