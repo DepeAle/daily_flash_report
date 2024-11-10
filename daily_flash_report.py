@@ -58,7 +58,6 @@ index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Vix", "Eurostoxx 50", "Ftse M
 
 index_data = yf.download(general_index, start=start_date, end=end_date)
 index_data = index_data["Adj Close"]
-index_data.index = index_data.index.strftime('%Y-%m-%d')
 
 index_data_ret = index_data.pct_change()*100
 index_data_ret = index_data_ret.dropna()
