@@ -1,1 +1,1 @@
-worker: python Daily-Mix.py
+worker: python daily_flash_report.py
