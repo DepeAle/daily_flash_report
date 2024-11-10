@@ -13,8 +13,6 @@ import pandas_datareader.data as web
 import pandas_datareader.data as reader
 import datetime
 from datetime import date, timedelta
-from fpdf import FPDF
-import dataframe_image as dfi
 
 st.set_page_config(page_title="Daily Report", page_icon=":tada", layout="wide")
 
