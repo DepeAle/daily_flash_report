@@ -92,13 +92,13 @@ st.pyplot(fig)
 #stock market indexes graphs
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #usa
-axs[0,0].plot(index_data_ret["^GSPC"], color = "blue")
+axs[0,0].plot(index_data["^GSPC"], color = "blue")
 axs[0,0].set_title(f'S&P 500 Last Close', fontsize=20)
-axs[0,1].plot(index_data_ret["^DJI"], color = "blue")
+axs[0,1].plot(index_data["^DJI"], color = "blue")
 axs[0,1].set_title(f'Dow Jones Last Close', fontsize=20)
-axs[1,0].plot(index_data_ret["^IXIC"], color = "blue")
+axs[1,0].plot(index_data["^IXIC"], color = "blue")
 axs[1,0].set_title(f'Nasdaq Last Close', fontsize=20)
-axs[1,1].plot(index_data_ret["^VIX"], color = "blue")
+axs[1,1].plot(index_data["^VIX"], color = "blue")
 axs[1,1].set_title(f'Vix S&P Last Close', fontsize=20)
 
 plt.show()
@@ -106,13 +106,13 @@ st.pyplot(fig)
 
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #EU
-axs[0,0].plot(index_data_ret["^STOXX50E"], color = "green")
+axs[0,0].plot(index_data["^STOXX50E"], color = "green")
 axs[0,0].set_title(f'Eurostoxx 50 Last Close', fontsize=20)
-axs[0,1].plot(index_data_ret["FTSEMIB.MI"], color = "green")
+axs[0,1].plot(index_data["FTSEMIB.MI"], color = "green")
 axs[0,1].set_title(f'Ftse Mib Last Close', fontsize=20)
-axs[1,0].plot(index_data_ret["^GDAXI"], color = "green")
+axs[1,0].plot(index_data["^GDAXI"], color = "green")
 axs[1,0].set_title(f'Dax 30 Last Close', fontsize=20)
-axs[1,1].plot(index_data_ret["^FCHI"], color = "green")
+axs[1,1].plot(index_data["^FCHI"], color = "green")
 axs[1,1].set_title(f'Cac 40 Last Close', fontsize=20)
 
 plt.show()
@@ -120,13 +120,13 @@ st.pyplot(fig)
 
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #Asia and world
-axs[0,0].plot(index_data_ret["^NSEI"], color = "orange")
+axs[0,0].plot(index_data["^NSEI"], color = "orange")
 axs[0,0].set_title(f'Nifty 50 Last Close', fontsize=20)
-axs[0,1].plot(index_data_ret["^HSI"], color = "orange")
+axs[0,1].plot(index_data["^HSI"], color = "orange")
 axs[0,1].set_title(f'Hang Seng Last Close', fontsize=20)
-axs[1,0].plot(index_data_ret["^N225"], color = "orange")
+axs[1,0].plot(index_data["^N225"], color = "orange")
 axs[1,0].set_title(f'Nikkei 225 Last Close', fontsize=20)
-axs[1,1].plot(index_data_ret["SWDA.MI"], color = "violet")
+axs[1,1].plot(index_data["SWDA.MI"], color = "violet")
 axs[1,1].set_title(f'MSCI World Last Close', fontsize=20)
 
 
