@@ -33,7 +33,7 @@ with st.container():
 # Sidebar widgets
 st.sidebar.header("Input Data")
 st.sidebar.write("Select your desired analysis date:")
-analysis_date = st.sidebar.selectbox("Choose from", [" ", "Last Trading Day", "Customized Dates"])
+analysis_date = st.sidebar.selectbox("Choose from", ["Last Trading Day", "Customized Dates"])
 if analysis_date=="Last Trading Day":
     days = st.sidebar.number_input("Enter your Time Horizon in Days:", min_value=0, max_value=3000, value=1000)
     #days = 2000 #almost 5 years before today
