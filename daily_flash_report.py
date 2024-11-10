@@ -14,31 +14,21 @@ import pandas_datareader.data as reader
 import datetime
 from datetime import date, timedelta
 
-st.set_page_config(page_title="Daily Report", page_icon=":tada", layout="wide")
-
-#get animation
-#https://lottiefiles.com/search?q=world&category=animations
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-lottie_coding = load_lottieurl("https://lottie.host/cdd28fa7-f55f-4b11-81b7-835a8c1d60dd/03XvF5qa1Q.json")
+st.set_page_config(page_title="Daily Flash Report", page_icon=":chart_with_upwards_trend", layout="wide")
 
 with st.container():
     st.subheader("Hi, I am Alessandro De Petra")
-    st.title("Here you can find a brief (and I hope useful) tool for create a report of the latest Financial Market Data!")
+    st.title("Here you can find a brief (and I hope useful) tool for creating a report on the latest financial market data!")
     st.write("[Curious about me? Learn more >](https://www.linkedin.com/in/alessandro-de-petra-4b1a20141/)")
 
 with st.container():
     st.write("----")
-    st.header("Introduction to the Daily Report")
+    st.header("Introduction to the Daily Flash Report")
     st.write("""
     - Part 1: Daily Return of the major Stock Market Indexes;
     - Part 2: Top 10 Best and Worst Performers of the S&P 500, Nasdaq 100 e Eurostoxx 50 (according to the latest daily stock return);
-    - Part 3: Daily Returns of the main Commodities and FX;
-    - Part 4: Some Charts for visualizing Stock Market Index Performances, Central Banks Policy Rates, Sovereign 10 Year Bond Yield, Commodity and FX trends.
+    - Part 3: Some Charts for visualizing Central Banks Policy Rates and Sovereign 10 Year Bond Yield;
+    - Part 4: Daily Returns of the main Commodities and FX.
     """)
         
 # Sidebar widgets
@@ -65,7 +55,6 @@ st.header("Part 1: Daily Return of the major Stock Market Indexes")
 # Text input for a user's name
 
 general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "^STOXX", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "SWDA.MI", "^FCHI"]
-index_name = ["Ftse Mib 30", "MSCI World", "Dow Jones", "Cac 40", "Dax 30", "S&P 500", "Hang Seng", "Nasdaq 100", "Nikkei 225", "Eurostoxx 50", "Eurostoxx 600"]
 index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Eurostoxx 50", "Eurostoxx 600", "Ftse Mib 30", "Cac 40", "Dax 30", "Hang Seng", "Nikkei 225", "MSCI World"]
 
 index_data = yf.download(general_index, start=start_date, end=end_date)
@@ -102,21 +91,15 @@ st.pyplot(fig)
 
 
 #stock market indexes graphs
-general_index = ["^GSPC", "^IXIC", "^DJI", "^STOXX50E", "FTSEMIB.MI", "^GDAXI", "^N225",  "^HSI", "^VIX", "SWDA.MI", "^FCHI", "^NSEI"]
-
-index_data = yf.download(general_index, start=start_date, end=end_date)
-index_data = index_data["Adj Close"]
-index_data_ret = index_data.pct_change().dropna()*100
-
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #usa
-axs[0,0].plot(index_data["^GSPC"], color = "blue")
+axs[0,0].plot(index_data_ret["^GSPC"], color = "blue")
 axs[0,0].set_title(f'S&P 500 Last Close', fontsize=20)
-axs[0,1].plot(index_data["^DJI"], color = "blue")
+axs[0,1].plot(index_data_ret["^DJI"], color = "blue")
 axs[0,1].set_title(f'Dow Jones Last Close', fontsize=20)
-axs[1,0].plot(index_data["^IXIC"], color = "blue")
+axs[1,0].plot(index_data_ret["^IXIC"], color = "blue")
 axs[1,0].set_title(f'Nasdaq Last Close', fontsize=20)
-axs[1,1].plot(index_data["^VIX"], color = "blue")
+axs[1,1].plot(index_data_ret["^VIX"], color = "blue")
 axs[1,1].set_title(f'Vix S&P Last Close', fontsize=20)
 
 plt.show()
@@ -124,13 +107,13 @@ st.pyplot(fig)
 
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #EU
-axs[0,0].plot(index_data["^STOXX50E"], color = "green")
+axs[0,0].plot(index_data_ret["^STOXX50E"], color = "green")
 axs[0,0].set_title(f'Eurostoxx 50 Last Close', fontsize=20)
-axs[0,1].plot(index_data["FTSEMIB.MI"], color = "green")
+axs[0,1].plot(index_data_ret["FTSEMIB.MI"], color = "green")
 axs[0,1].set_title(f'Ftse Mib Last Close', fontsize=20)
-axs[1,0].plot(index_data["^GDAXI"], color = "green")
+axs[1,0].plot(index_data_ret["^GDAXI"], color = "green")
 axs[1,0].set_title(f'Dax 30 Last Close', fontsize=20)
-axs[1,1].plot(index_data["^FCHI"], color = "green")
+axs[1,1].plot(index_data_ret["^FCHI"], color = "green")
 axs[1,1].set_title(f'Cac 40 Last Close', fontsize=20)
 
 plt.show()
@@ -138,13 +121,13 @@ st.pyplot(fig)
 
 fig, axs = plt.subplots(2,2, figsize=(30, 15))
 #Asia and world
-axs[0,0].plot(index_data["^NSEI"], color = "orange")
+axs[0,0].plot(index_data_ret["^NSEI"], color = "orange")
 axs[0,0].set_title(f'Nifty 50 Last Close', fontsize=20)
-axs[0,1].plot(index_data["^HSI"], color = "orange")
+axs[0,1].plot(index_data_ret["^HSI"], color = "orange")
 axs[0,1].set_title(f'Hang Seng Last Close', fontsize=20)
-axs[1,0].plot(index_data["^N225"], color = "orange")
+axs[1,0].plot(index_data_ret["^N225"], color = "orange")
 axs[1,0].set_title(f'Nikkei 225 Last Close', fontsize=20)
-axs[1,1].plot(index_data["SWDA.MI"], color = "violet")
+axs[1,1].plot(index_data_ret["SWDA.MI"], color = "violet")
 axs[1,1].set_title(f'MSCI World Last Close', fontsize=20)
 
 
@@ -348,7 +331,7 @@ fig, ax = plt.subplots(figsize=(10, 2))  # Imposta la dimensione della figura
 ax.axis('tight')
 ax.axis('off')
 table = ax.table(cellText=stoxx50_worst.values, colLabels=stoxx50_worst.columns, rowLabels=stoxx50_worst.index, cellLoc='center', loc='center')
-table.scale(2, 1.8) 
+table.scale(1.6, 2.5)
 table.set_fontsize(38)
 
 # Color the header
@@ -370,7 +353,7 @@ fig, ax = plt.subplots(figsize=(10, 2))  # Imposta la dimensione della figura
 ax.axis('tight')
 ax.axis('off')
 table = ax.table(cellText=stoxx50_best.values, colLabels=stoxx50_best.columns, rowLabels=stoxx50_best.index, cellLoc='center', loc='center')
-table.scale(2, 1.8) 
+table.scale(1.6, 2.5)
 table.set_fontsize(38)
 
 # Color the header
@@ -484,10 +467,10 @@ plt.show()
 st.pyplot(fig)
 
 st.subheader("FX Returns")
-currencies = ["EURUSD=X", "EURGBP=X", "EURCHF=X", "EURJPY=X", "EURCAD=X", "USDCNY=X", "USDHKD=X", "USDSGD=X", "AUDUSD=X"]
+currencies = ["EURUSD=X", "EURGBP=X", "EURCHF=X", "EURJPY=X"]
 currencies_data = yf.download(currencies, start_date, end_date)
 currencies_data = currencies_data["Close"]
-currencies_column_names = ["USD / EUR", "GBP / EUR", "CHF / EUR", "USD / JPY", "EUR / CAD", "USD / CNY", "USD / HKD", "USD / SGD", "AUD / USD"]
+currencies_column_names = ["USD / EUR", "GBP / EUR", "CHF / EUR", "USD / JPY"]
 currencies_data_ret = currencies_data.pct_change()*100
 currencies_data_ret = currencies_data_ret.applymap(lambda x: '{:.2f}'.format(x))
 currencies_data_ret.columns = currencies_column_names
@@ -510,28 +493,16 @@ st.pyplot(fig)
 
 fig, axs = plt.subplots(3,3, figsize=(30, 15))
 #first line
-axs[0,0].plot(currencies_data.iloc[0:,5], color = "blue")
+axs[0,0].plot(currencies_data.iloc[0:,1], color = "blue")
 axs[0,0].set_title(f'USD / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),5], 4).tolist()}', fontsize=12)
-axs[0,1].plot(currencies_data.iloc[0:,3], color = "blue")
+axs[0,1].plot(currencies_data.iloc[0:,2], color = "blue")
 axs[0,1].set_title(f'GBP / EUR:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),3], 4).tolist()}', fontsize=12)
-axs[0,2].plot(currencies_data.iloc[0:,2], color = "blue")
-axs[0,2].set_title(f'CHF / EUR:\n{round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),2], 4).tolist()}', fontsize=12)
 
 #second line
-axs[1,0].plot(currencies_data.iloc[0:,4], color = "blue")
-axs[1,0].set_title(f'EUR / JPY:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),4], 4).tolist()}', fontsize=12)
-axs[1,1].plot(currencies_data.iloc[0:,1], color = "blue")
-axs[1,1].set_title(f'EUR / CAD:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),1], 4).tolist()}', fontsize=12)
-axs[1,2].plot(currencies_data.iloc[0:,0], color = "blue")
-axs[1,2].set_title(f'AUD / USD:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),0], 4).tolist()}', fontsize=12)
-
-#third line
-axs[2,0].plot(currencies_data.iloc[0:,6], color = "blue")
-axs[2,0].set_title(f'USD / CNY:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),6], 4).tolist()}', fontsize=12)
-axs[2,1].plot(currencies_data.iloc[0:,7], color = "blue")
-axs[2,1].set_title(f'USD / HKD:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),7], 4).tolist()}', fontsize=12)
-axs[2,2].plot(currencies_data.iloc[0:,8], color = "blue")
-axs[2,2].set_title(f'USD / SGD:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),8], 4).tolist()}', fontsize=12)
+axs[1,0].plot(currencies_data.iloc[0:,3], color = "blue")
+axs[1,0].set_title(f'CHF / EUR:\n{round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),2], 4).tolist()}', fontsize=12)
+axs[1,1].plot(currencies_data.iloc[0:,4], color = "blue")
+axs[1,1].set_title(f'EUR / JPY:\n {round(currencies_data.iloc[len(currencies_data)-1:len(currencies_data),1], 4).tolist()}', fontsize=12)
 
 fig.suptitle('Main FX - Quotes', fontsize=36, y=0.94)
 plt.show()
