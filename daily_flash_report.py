@@ -9,25 +9,43 @@ import pandas_datareader.data as reader
 import datetime
 from datetime import date, timedelta
 
-st.set_page_config(page_title="Daily Flash Report", page_icon=":tada", layout="wide")
+st.set_page_config(page_title="Daily Flash Report", page_icon=":chart_with_upwards_trend", layout="wide")
+
+st.markdown(
+    """
+    <style>
+    /* Main background color */
+    .stApp {
+        background-color: #d3d3d3; /* Change to your desired color */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 with st.container():
-    st.subheader("Hi, I am Alessandro De Petra")
-    st.title("Here you can find a brief (and I hope useful) tool for create a report of the latest Financial Market Data!")
-    st.write("[Curious about me? Learn more >](https://www.linkedin.com/in/alessandro-de-petra-4b1a20141/)")
+    st.title("Hi, I am Alessandro De Petra")
+    st.subheader("Discover a concise, user-friendly tool for staying up-to-date with the latest Financial Market Data!")
+    st.write("[Curious about me?  Learn more clicking here!](https://www.linkedin.com/in/alessandro-de-petra-4b1a20141/)")
 
 with st.container():
     st.write("----")
     st.header("Introduction to the Daily Report")
     st.write("""
-    - Part 1: Daily Return of the major Stock Market Indexes;
-    - Part 2: Top 10 Best and Worst Performers of the S&P 500, Nasdaq 100 e Eurostoxx 50 (according to the latest daily stock return);
-    - Part 3: Daily Returns of the main Commodities and FX;
-    - Part 4: Some Charts for visualizing Stock Market Index Performances, Central Banks Policy Rates, Sovereign 10 Year Bond Yield, Commodity and FX trends.
+    - Part 1: Daily Return of the major Stock Market Indexes (source Yahoo Finance);
+    - Part 2: Top 10 Best and Worst Daily Performers of the S&P 500, Nasdaq 100 e Eurostoxx 50 (source Yahoo Finance);
+    - Part 3: Some Charts for visualizing Central Banks Policy Rates and Sovereign 10 Year Bond Yield (source Federal Reserve Bank of St. Louis);
+    - Part 4: Daily Returns of the main Commodities and FX (source Yahoo Finance).
     """)
         
 # Sidebar widgets
 st.sidebar.header("Input Data")
+report_part = st.sidebar.selectbox("Select an option:", ["Part 1 - Stock Markets Overview", 
+                                                 "Part 2 - Top and Worst Performers", 
+                                                 "Part 3 - Interest Rates and Bond Yields", 
+                                                 "Part 4 - Commodities And FX"])
+
 st.sidebar.write("Select your desired analysis date:")
 analysis_date = st.sidebar.selectbox("Choose from", ["Last Trading Day", "Customized Dates"])
 if analysis_date=="Last Trading Day":
@@ -42,13 +60,8 @@ elif analysis_date=="Customized Dates":
 else: 
     st.sidebar.write(" ")
 
-report_part = st.sidebar.selectbox("Select an option:", ["Part 1 - Stock Markets Overview", 
-                                                 "Part 2 - Top and Worst Performers", 
-                                                 "Part 3 - Interest Rates and Bond Yields", 
-                                                 "Part 4 - Commodities And FX"])
-
 # Title of the app
-st.title("Your Daily Report-Mix")
+st.title("Daily Flash Report")
 
 if report_part == "Part 1 - Stock Markets Overview":
     st.header("Part 1: Daily Return of the major Stock Market Indexes")
