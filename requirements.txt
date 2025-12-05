@@ -1,10 +1,10 @@
-streamlit==1.39.0
-requests==2.31.0
-yfinance== 0.2.41
-pandas==2.0.3
-numpy==1.23.5
-matplotlib==3.7.1
+streamlit==1.52.0
+requests==2.32.5
+yfinance== 0.2.66
+pandas==2.3.3
+numpy==2.3.5
+matplotlib==3.10.8
 pandas-datareader==0.10.0
-setuptools==50.3.1
-wheel==0.35.1
-distlib==0.3.9
+setuptools==80.9.0
+wheel==0.46.1
+distlib==0.4.0
