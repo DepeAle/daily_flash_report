@@ -70,7 +70,8 @@ if report_part == "Part 1 - Stock Markets Overview":
     index_name = ["S&P 500","Nasdaq 100","Dow Jones", "Vix", "Eurostoxx 50", "Ftse Mib 30", "Cac 40", "Dax 30", "Nifty 50", "Hang Seng", "Nikkei 225", "MSCI World"]
 
     index_data = yf.download(general_index, start=start_date, end=end_date)
-    index_data = index_data["Adj Close"]
+    #index_data = index_data["Adj Close"] #non funziona più adj close da yf
+    index_data = index_data["Close"]
 
     index_data_ret = index_data.pct_change()*100
     index_data_ret = index_data_ret.dropna()
@@ -173,7 +174,8 @@ elif report_part =="Part 2 - Top and Worst Performers":
     #xlookup = xlookup.drop(xlookup[xlookup["TIK"]=="STLD"].index)
     #tickers.remove("STLD")
 
-    snp_prices = yf.download(tickers, in_start_date, in_end_date)["Adj Close"]
+    #snp_prices = yf.download(tickers, in_start_date, in_end_date)["Adj Close"] #non funziona più adj close in yf
+    snp_prices = yf.download(tickers, in_start_date, in_end_date)["Close"]
 
     #date_time_obj = date.today()-timedelta(days=1)
     date_time_obj = snp_prices.index[-1]
@@ -246,7 +248,8 @@ elif report_part =="Part 2 - Top and Worst Performers":
     nasq_com_names = nasq_data_table[4]["Company"].tolist()
     nasq_gics_sector = nasq_data_table[4]["GICS Sector"].tolist()
     nasq_gics_sub_ind = nasq_data_table[4]["GICS Sub-Industry"].tolist()
-    nadq_prices = yf.download(nasq_tickers, in_start_date, end_date)["Adj Close"]
+    #nadq_prices = yf.download(nasq_tickers, in_start_date, end_date)["Adj Close"]
+    nadq_prices = yf.download(nasq_tickers, in_start_date, end_date)["Close"]
 
     nasq_ret = nadq_prices.pct_change().dropna()
     nasq_ret = nasq_ret*100
@@ -319,7 +322,8 @@ elif report_part =="Part 2 - Top and Worst Performers":
     stoxx50_industry = stoxx50_data_table[4]["Industry"].tolist()
     stoxx50_reg_office = stoxx50_data_table[4]["Registered office"].tolist()
 
-    stoxx50_prices = yf.download(stoxx50_tickers, in_start_date, end_date)["Adj Close"]
+    #stoxx50_prices = yf.download(stoxx50_tickers, in_start_date, end_date)["Adj Close"]
+    stoxx50_prices = yf.download(stoxx50_tickers, in_start_date, end_date)["Close"]
 
     stoxx50_ret = stoxx50_prices.pct_change().dropna()
     stoxx50_ret = stoxx50_ret*100
